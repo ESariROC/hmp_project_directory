@@ -1,4 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <h1>Lucky number: {{ number }}</h1>
+    {% for day in days %}
+        {{ day }} <br>
+    {% endfor %}
+<a href="{{ path('morgen') }}">klik hier</a>
 {% endblock %}
