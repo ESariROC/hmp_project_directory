@@ -27,4 +27,10 @@ class ProductController extends AbstractController
 
         return new Response('Saved new product with id '.$product->getId());
     }
+
+    #[Route('/show/product', name: 'show_products')]
+    public function showProducts(ManagerRegistry $doctrine):Response{
+        $product = $doctrine->getRepository(Product::class)->findAll();
+        dd($product);
+    }
 }
