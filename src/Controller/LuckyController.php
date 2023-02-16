@@ -7,10 +7,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 class LuckyController extends AbstractController
 {
-    #[Route('/lucky/number')]
-    public function number(): Response
+    #[Route('/lucky/number/{max}')]
+    public function number($max): Response
     {
-        $number = random_int(0, 100);
+        $number = random_int(0, $max);
         $dagen = ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag'];
         return $this->render('bezoeker/lucky.html.twig',
             ['number'=>$number,
