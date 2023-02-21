@@ -10,14 +10,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends AbstractController
 {
-    #[Route('/product', name: 'create_product')]
-    public function createProduct(ManagerRegistry $doctrine): Response
+    #[Route('/product/{name}/{price}', name: 'create_product')]
+    public function createProduct(ManagerRegistry $doctrine, string $name, int $price): Response
     {
         $entityManager = $doctrine->getManager();
 
         $product = new Product();
-        $product->setName('Keyboard');
-        $product->setPrice(1999);
+        $product->setName($name);
+        $product->setPrice($price);
 
         // tell Doctrine you want to (eventually) save the Product (no queries yet)
         $entityManager->persist($product);
@@ -30,7 +30,8 @@ class ProductController extends AbstractController
 
     #[Route('/show/product', name: 'show_products')]
     public function showProducts(ManagerRegistry $doctrine):Response{
-        $product = $doctrine->getRepository(Product::class)->findAll();
-        dd($product);
+        $products = $doctrine->getRepository(Product::class)->findAll();
+//        dd($product);
+        return $this->render('product/show_product.html.twig', ['products'=>$products]);
     }
 }
