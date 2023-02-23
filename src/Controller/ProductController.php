@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Product;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,5 +34,29 @@ class ProductController extends AbstractController
         $products = $doctrine->getRepository(Product::class)->findAll();
 //        dd($product);
         return $this->render('product/show_product.html.twig', ['products'=>$products]);
+    }
+
+    #[Route('/product', name: 'product')]
+    public function index(ManagerRegistry $doctrine): Response
+    {
+        $category = new Category();
+        $category->setCatagory('Object');
+
+        $product = new Product();
+        $product->setName('Nagels');
+        $product->setPrice(5);
+
+        // relates this product to the category
+        $product->setCategory($category);
+
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($category);
+        $entityManager->persist($product);
+        $entityManager->flush();
+
+        return new Response(
+            'Saved new product with id: '.$product->getId()
+            .' and new category with id: '.$category->getId()
+        );
     }
 }

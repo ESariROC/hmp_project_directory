@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 16 feb 2023 om 12:56
+-- Gegenereerd op: 23 feb 2023 om 12:20
 -- Serverversie: 10.4.24-MariaDB
 -- PHP-versie: 8.1.6
 
@@ -24,6 +24,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Tabelstructuur voor tabel `category`
+--
+
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL,
+  `catagory` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `category`
+--
+
+INSERT INTO `category` (`id`, `catagory`) VALUES
+(1, 'Computer Peripherals'),
+(3, 'Object');
+
+-- --------------------------------------------------------
+
+--
 -- Tabelstructuur voor tabel `doctrine_migration_versions`
 --
 
@@ -38,7 +57,7 @@ CREATE TABLE `doctrine_migration_versions` (
 --
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20230216110624', '2023-02-16 12:06:32', 40);
+('DoctrineMigrations\\Version20230223105143', '2023-02-23 11:51:48', 178);
 
 -- --------------------------------------------------------
 
@@ -48,6 +67,7 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 
 CREATE TABLE `product` (
   `id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -56,15 +76,21 @@ CREATE TABLE `product` (
 -- Gegevens worden geëxporteerd voor tabel `product`
 --
 
-INSERT INTO `product` (`id`, `name`, `price`) VALUES
-(1, 'Keyboard', 1999),
-(2, 'mouse', 536),
-(3, 'bus', 763),
-(4, 'run', 426);
+INSERT INTO `product` (`id`, `category_id`, `name`, `price`) VALUES
+(1, 1, 'Keyboard', 19),
+(2, 1, 'mouse', 34),
+(3, 3, 'Hammer', 120),
+(4, 3, 'Nagels', 5);
 
 --
 -- Indexen voor geëxporteerde tabellen
 --
+
+--
+-- Indexen voor tabel `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexen voor tabel `doctrine_migration_versions`
@@ -76,17 +102,34 @@ ALTER TABLE `doctrine_migration_versions`
 -- Indexen voor tabel `product`
 --
 ALTER TABLE `product`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_D34A04AD12469DE2` (`category_id`);
 
 --
 -- AUTO_INCREMENT voor geëxporteerde tabellen
 --
 
 --
+-- AUTO_INCREMENT voor een tabel `category`
+--
+ALTER TABLE `category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT voor een tabel `product`
 --
 ALTER TABLE `product`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Beperkingen voor geëxporteerde tabellen
+--
+
+--
+-- Beperkingen voor tabel `product`
+--
+ALTER TABLE `product`
+  ADD CONSTRAINT `FK_D34A04AD12469DE2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

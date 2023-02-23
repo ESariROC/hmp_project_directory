@@ -19,9 +19,10 @@ class Product
     #[ORM\Column]
     private ?int $price = null;
 
-    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[ORM\ManyToOne(inversedBy: 'productz')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
+
 
     public function getId(): ?int
     {
@@ -63,4 +64,6 @@ class Product
 
         return $this;
     }
+
+
 }
