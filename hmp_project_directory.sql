@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 23 feb 2023 om 12:20
+-- Gegenereerd op: 14 mrt 2023 om 10:29
 -- Serverversie: 10.4.24-MariaDB
 -- PHP-versie: 8.1.6
 
@@ -38,7 +38,8 @@ CREATE TABLE `category` (
 
 INSERT INTO `category` (`id`, `catagory`) VALUES
 (1, 'Computer Peripherals'),
-(3, 'Object');
+(3, 'Object'),
+(5, 'Object');
 
 -- --------------------------------------------------------
 
@@ -57,7 +58,8 @@ CREATE TABLE `doctrine_migration_versions` (
 --
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20230223105143', '2023-02-23 11:51:48', 178);
+('DoctrineMigrations\\Version20230223105143', '2023-02-23 11:51:48', 178),
+('DoctrineMigrations\\Version20230314084016', '2023-03-14 09:40:34', 37);
 
 -- --------------------------------------------------------
 
@@ -80,7 +82,20 @@ INSERT INTO `product` (`id`, `category_id`, `name`, `price`) VALUES
 (1, 1, 'Keyboard', 19),
 (2, 1, 'mouse', 34),
 (3, 3, 'Hammer', 120),
-(4, 3, 'Nagels', 5);
+(4, 3, 'Nagels', 5),
+(5, 5, 'Nagels', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `task`
+--
+
+CREATE TABLE `task` (
+  `id` int(11) NOT NULL,
+  `task` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `due_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -106,6 +121,12 @@ ALTER TABLE `product`
   ADD KEY `IDX_D34A04AD12469DE2` (`category_id`);
 
 --
+-- Indexen voor tabel `task`
+--
+ALTER TABLE `task`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT voor geëxporteerde tabellen
 --
 
@@ -113,13 +134,19 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT voor een tabel `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT voor een tabel `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT voor een tabel `task`
+--
+ALTER TABLE `task`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Beperkingen voor geëxporteerde tabellen
