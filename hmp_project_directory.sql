@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 14 mrt 2023 om 10:29
+-- Gegenereerd op: 23 mrt 2023 om 12:59
 -- Serverversie: 10.4.24-MariaDB
 -- PHP-versie: 8.1.6
 
@@ -44,6 +44,19 @@ INSERT INTO `category` (`id`, `catagory`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Tabelstructuur voor tabel `department`
+--
+
+CREATE TABLE `department` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `location` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `budget` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Tabelstructuur voor tabel `doctrine_migration_versions`
 --
 
@@ -59,7 +72,23 @@ CREATE TABLE `doctrine_migration_versions` (
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 ('DoctrineMigrations\\Version20230223105143', '2023-02-23 11:51:48', 178),
-('DoctrineMigrations\\Version20230314084016', '2023-03-14 09:40:34', 37);
+('DoctrineMigrations\\Version20230314084016', '2023-03-14 09:40:34', 37),
+('DoctrineMigrations\\Version20230323114413', '2023-03-23 12:44:20', 171);
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `employee`
+--
+
+CREATE TABLE `employee` (
+  `id` int(11) NOT NULL,
+  `department_id` int(11) DEFAULT NULL,
+  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `salary` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -108,10 +137,23 @@ ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexen voor tabel `department`
+--
+ALTER TABLE `department`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexen voor tabel `doctrine_migration_versions`
 --
 ALTER TABLE `doctrine_migration_versions`
   ADD PRIMARY KEY (`version`);
+
+--
+-- Indexen voor tabel `employee`
+--
+ALTER TABLE `employee`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_5D9F75A1AE80F5DF` (`department_id`);
 
 --
 -- Indexen voor tabel `product`
@@ -137,6 +179,18 @@ ALTER TABLE `category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT voor een tabel `department`
+--
+ALTER TABLE `department`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT voor een tabel `employee`
+--
+ALTER TABLE `employee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT voor een tabel `product`
 --
 ALTER TABLE `product`
@@ -151,6 +205,12 @@ ALTER TABLE `task`
 --
 -- Beperkingen voor geëxporteerde tabellen
 --
+
+--
+-- Beperkingen voor tabel `employee`
+--
+ALTER TABLE `employee`
+  ADD CONSTRAINT `FK_5D9F75A1AE80F5DF` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`);
 
 --
 -- Beperkingen voor tabel `product`
