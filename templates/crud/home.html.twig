@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CrudController!{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <table class="table border border-light table-dark">
+
+                <thead>
+                <tr>
+                    <th>Model</th>
+                    <th>Type</th>
+                    <th>Prijs(euro)</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for auto in autos %}
+                    <tr>
+                        <td>{{ auto.model }}</td>
+                        <td>{{ auto.type}}</td>
+                        <td>{{ auto.prijs }}</td>
+                        <td><a href="{{ path('details', {id: auto.id}) }}">Details</a></td>
+                        <td><a href="">Update</a></td>
+                        <td><a href="">Delete</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+            <a href="{{ path('insert') }}">insert</a>
+        </div>
+    </div>
+
+{% endblock %}

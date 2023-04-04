@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <h1>Model: {{ autos.model }}</h1>
+            <p>
+               <b> Type: {{ autos.type}} <br>
+                   Kleur: {{ autos.kleur }} <br>
+                   Prijs: {{ autos.prijs }} <br>
+                   Gewicht: {{ autos.gewicht }} <br>
+                   Voorraad: {{ autos.voorraad }}
+               </b>
+            </p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
