@@ -26,8 +26,8 @@
                         <td>{{ auto.type}}</td>
                         <td>{{ auto.prijs }}</td>
                         <td><a href="{{ path('details', {id: auto.id}) }}">Details</a></td>
-                        <td><a href="">Update</a></td>
-                        <td><a href="">Delete</a></td>
+                        <td><a href="{{ path('update', {id: auto.id}) }}">Update</a></td>
+                        <td><a href="{{ path('delete', {id: auto.id}) }}">Delete</a></td>
                     </tr>
                 {% endfor %}
                 </tbody>

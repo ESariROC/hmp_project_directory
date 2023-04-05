@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Autos;
 use App\Form\InsertType;
+use App\Form\UpdateType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,30 +38,50 @@ class CrudController extends AbstractController
             ['autos'=>$autos],
         );
     }
-    #[Route('/crud/update', name: 'update')]
-    public function update(EntityManagerInterface $entityManager, int $id): Response
+    #[Route('/crud/update/{id}', name: 'update')]
+    public function update(Request $request, ManagerRegistry $doctrine, int $id): Response
     {
+        $entityManager = $doctrine->getManager();
         $autos = $entityManager->getRepository(Autos::class)->find($id);
 
-        if (!$autos) {
-            throw $this->createNotFoundException(
-                'No product found for id '.$id
-            );
+        $form = $this->createForm(UpdateType::class, $autos);
+
+
+        $form->handleRequest($request);
+        // dd($form);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $form->getData() holds the submitted values
+            // but, the original `$task` variable has also been updated
+            $entityManager->flush();
+
+            // ... perform some action, such as saving the task to the database
+            return $this->redirectToRoute('app_crud', ['id' => $autos->getId()]);
         }
-
-        $autos->setName('New product name!');
-        $entityManager->flush();
-
-        return $this->redirectToRoute('app_crud', [
-
-        ]);
+        return $this->render('crud/update.html.twig',
+            ['form' => $form,]);
     }
-    #[Route('/crud/delete', name: 'delete')]
-    public function delete(ManagerRegistry $doctrine): Response
+    #[Route('/crud/delete/{id}', name: 'delete')]
+    public function delete(Request $request, ManagerRegistry $doctrine, int $id): Response
     {
-        $autos = $doctrine->getRepository(Autos::class)->findAll();
-        return $this->render('crud/delete.html.twig',
-            ['autos'=>$autos],
+        $entityManager = $doctrine->getManager();
+
+        $autos = $entityManager->getRepository(Autos::class)->find($id);
+
+        $form = $this->createForm(UpdateType::class, $autos);
+
+
+        $form->handleRequest($request);
+        // dd($form);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $form->getData() holds the submitted values
+            // but, the original `$task` variable has also been updated
+            $entityManager->remove($autos);
+            $entityManager->flush();
+
+            // ... perform some action, such as saving the task to the database
+            return $this->redirectToRoute('app_crud', ['id' => $autos->getId()]);
+        }
+        return $this->render('crud/delete.html.twig', ['form' => $form],
         );
     }
     #[Route('/crud/insert', name: 'insert')]
