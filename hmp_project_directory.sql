@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 23 mrt 2023 om 12:59
+-- Gegenereerd op: 04 apr 2023 om 12:58
 -- Serverversie: 10.4.24-MariaDB
 -- PHP-versie: 8.1.6
 
@@ -20,6 +20,32 @@ SET time_zone = "+00:00";
 --
 -- Database: `hmp_project_directory`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `autos`
+--
+
+CREATE TABLE `autos` (
+  `id` int(11) NOT NULL,
+  `model` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kleur` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gewicht` int(11) NOT NULL,
+  `prijs` int(11) NOT NULL,
+  `voorraad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `autos`
+--
+
+INSERT INTO `autos` (`id`, `model`, `type`, `kleur`, `gewicht`, `prijs`, `voorraad`) VALUES
+(1, 'Volkswagen', 'Up', 'Blauw', 954, 18140, 3),
+(2, 'Porche', '911', 'Wit', 1075, 123396, 2),
+(3, 'Volkwagen', 'Tiguan', 'Zilver', 1510, 36635, 4),
+(4, 'Mini', 'Cooper S', 'Geel', 1185, 57000, 5);
 
 -- --------------------------------------------------------
 
@@ -73,7 +99,8 @@ CREATE TABLE `doctrine_migration_versions` (
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 ('DoctrineMigrations\\Version20230223105143', '2023-02-23 11:51:48', 178),
 ('DoctrineMigrations\\Version20230314084016', '2023-03-14 09:40:34', 37),
-('DoctrineMigrations\\Version20230323114413', '2023-03-23 12:44:20', 171);
+('DoctrineMigrations\\Version20230323114413', '2023-03-23 12:44:20', 171),
+('DoctrineMigrations\\Version20230404092407', '2023-04-04 11:24:16', 50);
 
 -- --------------------------------------------------------
 
@@ -131,6 +158,12 @@ CREATE TABLE `task` (
 --
 
 --
+-- Indexen voor tabel `autos`
+--
+ALTER TABLE `autos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexen voor tabel `category`
 --
 ALTER TABLE `category`
@@ -171,6 +204,12 @@ ALTER TABLE `task`
 --
 -- AUTO_INCREMENT voor geëxporteerde tabellen
 --
+
+--
+-- AUTO_INCREMENT voor een tabel `autos`
+--
+ALTER TABLE `autos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT voor een tabel `category`
