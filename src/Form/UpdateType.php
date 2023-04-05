@@ -27,11 +27,11 @@ class UpdateType extends AbstractType
             ])
             ->add('gewicht', IntegerType::class)
             ->add('prijs', IntegerType::class, [
-                'invalid_message' => 'You entered an invalid value, it should be more than 10.000',
+                'invalid_message' => 'You entered an invalid value, it should be more than %num%',
                 'invalid_message_parameters' => ['%num%' => 10.000],
             ])
             ->add('voorraad', IntegerType::class, [
-                'invalid_message' => 'You entered an invalid value, it should be minimum 1',
+                'invalid_message' => 'You entered an invalid value, it should be minimum %num%',
                 'invalid_message_parameters' => ['%num%' => 1],
             ])
             ->add('submit', SubmitType::class)

@@ -102,6 +102,9 @@ class CrudController extends AbstractController
             $entityManager->persist($task);
 
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                'Your row was added!');
 
             // ... perform some action, such as saving the task to the database
             return $this->redirectToRoute('app_crud');

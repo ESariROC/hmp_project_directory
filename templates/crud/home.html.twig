@@ -5,6 +5,15 @@
 {% block body %}
 
     <div class="container-fluid">
+    <div class="container">
+        <div class="row ">
+            {% for msg in app.session.flashBag.get('success') %}
+                <div class="alert alert-success">
+                    {{ msg }}
+                </div>
+            {% endfor %}
+
+        </div>
         <div class="row">
             <table class="table border border-light table-dark">
 
