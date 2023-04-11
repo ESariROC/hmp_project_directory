@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 04 apr 2023 om 12:58
+-- Gegenereerd op: 11 apr 2023 om 12:59
 -- Serverversie: 10.4.24-MariaDB
 -- PHP-versie: 8.1.6
 
@@ -100,7 +100,8 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 ('DoctrineMigrations\\Version20230223105143', '2023-02-23 11:51:48', 178),
 ('DoctrineMigrations\\Version20230314084016', '2023-03-14 09:40:34', 37),
 ('DoctrineMigrations\\Version20230323114413', '2023-03-23 12:44:20', 171),
-('DoctrineMigrations\\Version20230404092407', '2023-04-04 11:24:16', 50);
+('DoctrineMigrations\\Version20230404092407', '2023-04-04 11:24:16', 50),
+('DoctrineMigrations\\Version20230411101038', '2023-04-11 12:12:04', 43);
 
 -- --------------------------------------------------------
 
@@ -153,6 +154,19 @@ CREATE TABLE `task` (
   `due_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 --
 -- Indexen voor geëxporteerde tabellen
 --
@@ -202,6 +216,12 @@ ALTER TABLE `task`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexen voor tabel `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT voor geëxporteerde tabellen
 --
 
@@ -239,6 +259,12 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT voor een tabel `task`
 --
 ALTER TABLE `task`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT voor een tabel `user`
+--
+ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
