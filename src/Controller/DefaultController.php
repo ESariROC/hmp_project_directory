@@ -17,10 +17,10 @@ class DefaultController extends AbstractController
         ]);
     }
     #[Route('/default/login', name: 'login-default')]
-    public function login(AuthenticationUtils $autenticationUttils): Response
+    public function login(AuthenticationUtils $autenticationUtils): Response
     {
-        $error = $autenticationUttils->getLastAuthenticationError();
-        $lastUsername = $autenticationUttils->getLastUsername();
+        $error = $autenticationUtils->getLastAuthenticationError();
+        $lastUsername = $autenticationUtils->getLastUsername();
         return $this->render('default/login.html.twig', [
             'controller_name' => 'DefaultController', 'last_username' => $lastUsername, 'error' => $error,
         ]);
