@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 11 apr 2023 om 12:59
+-- Gegenereerd op: 12 apr 2023 om 12:44
 -- Serverversie: 10.4.24-MariaDB
 -- PHP-versie: 8.1.6
 
@@ -101,7 +101,7 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 ('DoctrineMigrations\\Version20230314084016', '2023-03-14 09:40:34', 37),
 ('DoctrineMigrations\\Version20230323114413', '2023-03-23 12:44:20', 171),
 ('DoctrineMigrations\\Version20230404092407', '2023-04-04 11:24:16', 50),
-('DoctrineMigrations\\Version20230411101038', '2023-04-11 12:12:04', 43);
+('DoctrineMigrations\\Version20230412074907', '2023-04-12 09:49:12', 47);
 
 -- --------------------------------------------------------
 
@@ -162,10 +162,18 @@ CREATE TABLE `task` (
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `roles` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:json)',
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `user`
+--
+
+INSERT INTO `user` (`id`, `email`, `roles`, `password`) VALUES
+(1, 'klaas@rocmondriaan.nl', '[\"ROLE_KLANT\"]', '$2y$13$KB31zuLnClUpRwFBUZ4OGeCtwpkeYJ3HyP5DeYzy3Q191zRFM4gVy\r\n'),
+(2, 'admin@rocmondriaan.nl', '[\"ROLE_ADMIN\"]', '$2y$13$U/6BxRL2SkIuXaA9bx1j7ejmwlSULMzoEIS.kKgd42jczmYtHLErO');
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -219,7 +227,8 @@ ALTER TABLE `task`
 -- Indexen voor tabel `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`);
 
 --
 -- AUTO_INCREMENT voor geëxporteerde tabellen
@@ -265,7 +274,7 @@ ALTER TABLE `task`
 -- AUTO_INCREMENT voor een tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Beperkingen voor geëxporteerde tabellen
