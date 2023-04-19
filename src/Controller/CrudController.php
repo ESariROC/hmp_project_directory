@@ -61,28 +61,21 @@ class CrudController extends AbstractController
             ['form' => $form,]);
     }
     #[Route('/crud/delete/{id}', name: 'delete')]
-    public function delete(Request $request, ManagerRegistry $doctrine, int $id): Response
+    public function delete(ManagerRegistry $doctrine, int $id): Response
     {
         $entityManager = $doctrine->getManager();
 
         $autos = $entityManager->getRepository(Autos::class)->find($id);
 
-        $form = $this->createForm(UpdateType::class, $autos);
 
 
-        $form->handleRequest($request);
-        // dd($form);
-        if ($form->isSubmitted() && $form->isValid()) {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
+
+
             $entityManager->remove($autos);
             $entityManager->flush();
-
             // ... perform some action, such as saving the task to the database
             return $this->redirectToRoute('app_crud', ['id' => $autos->getId()]);
-        }
-        return $this->render('crud/delete.html.twig', ['form' => $form],
-        );
+
     }
     #[Route('/crud/insert', name: 'insert')]
     public function insert(Request $request, ManagerRegistry $doctrine): Response
