@@ -17,25 +17,22 @@ class CrudController extends AbstractController
     #[Route('/crud', name: 'app_crud')]
     public function index(): Response
     {
-        return $this->render('crud/index.html.twig', [
-            'controller_name' => 'CrudController',
-        ]);
+        return $this->render('crud/index.html.twig', ['controller_name' => 'CrudController'],
+        );
     }
 
     #[Route('/crud/home', name: 'app_crud')]
     public function showHome(ManagerRegistry $doctrine): Response
     {
         $autos = $doctrine->getRepository(Autos::class)->findAll();
-        return $this->render('crud/home.html.twig',
-            ['autos'=>$autos],
+        return $this->render('crud/home.html.twig', ['autos'=>$autos],
         );
     }
     #[Route('/crud/details/{id}', name: 'details')]
     public function showDetails(ManagerRegistry $doctrine, int $id): Response
     {
         $autos = $doctrine->getRepository(Autos::class)->find($id);
-        return $this->render('crud/detail.html.twig',
-            ['autos'=>$autos],
+        return $this->render('crud/detail.html.twig', ['autos'=>$autos],
         );
     }
     #[Route('/crud/update/{id}', name: 'update')]
@@ -57,8 +54,7 @@ class CrudController extends AbstractController
             // ... perform some action, such as saving the task to the database
             return $this->redirectToRoute('app_crud', ['id' => $autos->getId()]);
         }
-        return $this->render('crud/update.html.twig',
-            ['form' => $form,]);
+        return $this->render('crud/update.html.twig', ['form' => $form,]);
     }
     #[Route('/crud/delete/{id}', name: 'delete')]
     public function delete(ManagerRegistry $doctrine, int $id): Response
@@ -104,7 +100,6 @@ class CrudController extends AbstractController
 
 
         }
-        return $this->render('crud/insert.html.twig',
-            ['form' => $form,]);
+        return $this->render('crud/insert.html.twig', ['form' => $form,]);
     }
 }
